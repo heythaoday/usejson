@@ -8,15 +8,14 @@ import {
   useReactFlow,
 } from "@xyflow/react";
 import { useCallback, useState, useRef } from "react";
-import NodeContextMenu from "./NodeContextMenu";
 
-interface FlowCanvasProps {
+type FlowCanvasProps = {
   nodes: Node[];
   edges: Edge[];
-  onNodesChange: any;
-  onEdgesChange: any;
-  onConnect: any;
-}
+  onNodesChange: (changes: any) => void;
+  onEdgesChange: (changes: any) => void;
+  onConnect: (params: any) => void;
+};
 
 export function FlowCanvas({
   nodes,
@@ -30,7 +29,6 @@ export function FlowCanvas({
     new Set()
   );
   const { getEdges } = useReactFlow();
-  const [menu, setMenu] = useState(null);
   const ref = useRef(null);
 
   const findForwardNodes = useCallback(
@@ -85,28 +83,6 @@ export function FlowCanvas({
     };
   };
 
-  const onNodeContextMenu = useCallback(
-    (event, node) => {
-      // Prevent native context menu from showing
-      event.preventDefault();
-
-      // Calculate position of the context menu. We want to make sure it
-      // doesn't get positioned off-screen.
-      const pane = ref.current.getBoundingClientRect();
-      setMenu({
-        id: node.id,
-        top: event.clientY < pane.height - 200 && event.clientY,
-        left: event.clientX < pane.width - 200 && event.clientX,
-        right: event.clientX >= pane.width - 200 && pane.width - event.clientX,
-        bottom:
-          event.clientY >= pane.height - 200 && pane.height - event.clientY,
-      });
-    },
-    [setMenu]
-  );
-
-  // Close the context menu if it's open whenever the window is clicked.
-  const onPaneClick = useCallback(() => setMenu(null), [setMenu]);
   return (
     <ReactFlow
       ref={ref}
@@ -123,13 +99,10 @@ export function FlowCanvas({
       onConnect={onConnect}
       onSelectionChange={onSelectionChange}
       fitView
-      onNodeContextMenu={onNodeContextMenu}
-      onPaneClick={onPaneClick}
     >
       <Background />
       <Controls />
       <MiniMap />
-      {menu && <NodeContextMenu onClick={onPaneClick} {...menu} />}
     </ReactFlow>
   );
 }

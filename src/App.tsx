@@ -37,9 +37,7 @@ const initialEdges = [
 const Flow = () => {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-  const [jsonContent, setJsonContent] = useState(
-    '{\n  "nodes": [],\n  "edges": []\n}'
-  );
+  const [jsonContent, setJsonContent] = useState('{}');
 
   const onConnect = useCallback(
     (params) => setEdges((els) => addEdge(params, els)),
