@@ -1,50 +1,66 @@
-# React + TypeScript + Vite
+# Use JSON Flow
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An elegant visualization tool that transforms complex JSON data structures into interactive node graphs.
 
-Currently, two official plugins are available:
+![Use JSON Flow](./public/demo.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- 📊 **Interactive Visualization**: Convert complex JSON/XML structures into intuitive node graphs
+- 🔍 **Node Navigation**: Click nodes to highlight connected elements and traverse the data structure
+- ↔️ **Resizable Interface**: Flexible layout with adjustable editor and visualization panels
+- 📝 **Live Editing**: Real-time JSON editor with syntax validation
+- 🎨 **Visual Hierarchy**: Clear representation of nested data structures
+- 🔄 **Animated Connections**: Visual feedback for data relationships
+- 📱 **Responsive Design**: Works seamlessly across different screen sizes
 
-- Configure the top-level `parserOptions` property like this:
+## Getting Started
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+### Prerequisites
+
+- Node.js 16.x or later
+- npm or yarn
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/heythaoday/usejson.git
+
+# Navigate to project directory
+cd usejson
+
+# Install dependencies
+yarn
+
+# Start the development server
+yarn dev
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### Usage
+### Technical Details
+Built with modern web technologies:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+- ⚛️ React + TypeScript
+- 🔄 React Flow for graph visualization
+- 🎨 Tailwind CSS for styling
+- 📝 Monaco Editor for JSON editing
+- 🏗️ Vite for build tooling
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+### Limitations
+- Maximum file size: 1MB
+- Maximum 1000 lines of JSON content
+- Supports JSON and XML formats
+### Contributing
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+### License
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+### Acknowledgments
+React Flow for the graph visualization library
+Shadcn UI for UI components
+Monaco Editor for the code editor
+***
+Made with ❤️ by Thao Dang
