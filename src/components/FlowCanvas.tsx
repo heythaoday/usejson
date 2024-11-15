@@ -6,15 +6,19 @@ import {
   Node,
   Edge,
   useReactFlow,
+  OnNodesChange,
+  OnEdgesChange,
+  OnConnect,
+  OnSelectionChangeParams,
 } from "@xyflow/react";
 import { useCallback, useState, useRef } from "react";
 
 type FlowCanvasProps = {
   nodes: Node[];
   edges: Edge[];
-  onNodesChange: (changes: any) => void;
-  onEdgesChange: (changes: any) => void;
-  onConnect: (params: any) => void;
+  onNodesChange: OnNodesChange;
+  onEdgesChange: OnEdgesChange;
+  onConnect: OnConnect;
 };
 
 export function FlowCanvas({
@@ -29,11 +33,11 @@ export function FlowCanvas({
     new Set()
   );
   const { getEdges } = useReactFlow();
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   const findForwardNodes = useCallback(
-    (nodeId: string, visited = new Set<string>()) => {
-      if (visited.has(nodeId)) return;
+    (nodeId: string, visited = new Set<string>()): Set<string> => {
+      if (visited.has(nodeId)) return visited;
       visited.add(nodeId);
 
       // Only get edges where current node is the source
@@ -48,19 +52,31 @@ export function FlowCanvas({
     [getEdges]
   );
 
+  const findParentNode = useCallback(
+    (nodeId: string): string | null => {
+      const parentEdge = getEdges().find((edge) => edge.target === nodeId);
+      return parentEdge?.source || null;
+    },
+    [getEdges]
+  );
+
   const onSelectionChange = useCallback(
-    ({ nodes: selectedNodes }) => {
+    ({ nodes: selectedNodes }: OnSelectionChangeParams) => {
       const selected = selectedNodes[0]?.id || null;
       setSelectedNodeId(selected);
 
       if (selected) {
-        const connected = findForwardNodes(selected) || new Set();
+        const connected = findForwardNodes(selected);
+        const parentId = findParentNode(selected);
+        if (parentId) {
+          connected.add(parentId);
+        }
         setHighlightedNodes(connected);
       } else {
         setHighlightedNodes(new Set());
       }
     },
-    [findForwardNodes]
+    [findForwardNodes, findParentNode]
   );
 
   const getNodeStyle = (node: Node) => {
@@ -75,6 +91,7 @@ export function FlowCanvas({
     if (!selectedNodeId) return {};
     const isInPath =
       edge.source === selectedNodeId ||
+      edge.target === selectedNodeId ||
       (highlightedNodes.has(edge.source) && highlightedNodes.has(edge.target));
     return {
       stroke: isInPath ? "#ff0072" : "#b1b1b7",
@@ -84,25 +101,34 @@ export function FlowCanvas({
   };
 
   return (
-    <ReactFlow
-      ref={ref}
-      nodes={nodes.map((node) => ({
-        ...node,
-        style: getNodeStyle(node),
-      }))}
-      edges={edges.map((edge) => ({
-        ...edge,
-        style: getEdgeStyle(edge),
-      }))}
-      onNodesChange={onNodesChange}
-      onEdgesChange={onEdgesChange}
-      onConnect={onConnect}
-      onSelectionChange={onSelectionChange}
-      fitView
-    >
-      <Background />
-      <Controls />
-      <MiniMap />
-    </ReactFlow>
+    <div className="relative w-full h-full">
+      <ReactFlow
+        ref={ref}
+        nodes={nodes.map((node) => ({
+          ...node,
+          style: getNodeStyle(node),
+        }))}
+        edges={edges.map((edge) => ({
+          ...edge,
+          style: getEdgeStyle(edge),
+          strokeDasharray: 5,
+          animated: selectedNodeId
+            ? edge.source === selectedNodeId ||
+              edge.target === selectedNodeId ||
+              (highlightedNodes.has(edge.source) &&
+                highlightedNodes.has(edge.target))
+            : false,
+        }))}
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
+        onConnect={onConnect}
+        onSelectionChange={onSelectionChange}
+        fitView
+      >
+        <Background />
+        <Controls />
+        <MiniMap />
+      </ReactFlow>
+    </div>
   );
 }

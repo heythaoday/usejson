@@ -8,15 +8,9 @@ interface CodeEditorProps {
   onKeyDown?: (e: KeyboardEvent) => void;
 }
 
-export const CodeEditor: FC<CodeEditorProps> = ({ value, onChange, className, onKeyDown }) => {
+export const CodeEditor: FC<CodeEditorProps> = ({ value, onChange, className }) => {
   const handleChange = (value: string | undefined) => {
     onChange(value || '');
-  };
-
-  const handleEditorKeyDown = (e: KeyboardEvent) => {
-    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-      onKeyDown?.(e);
-    }
   };
 
   return (

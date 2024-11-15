@@ -8,6 +8,7 @@ import { useNodesState, useEdgesState, addEdge, Position, ReactFlowProvider } fr
 import { MenuBar } from "@/components/MenuBar";
 import { JsonEditor } from "@/components/JsonEditor";
 import { FlowCanvas } from "@/components/FlowCanvas";
+import { calculateGridPosition } from "@/lib/utils";
 
 import "@xyflow/react/dist/style.css";
 
@@ -20,7 +21,7 @@ const initialNodes = [
   {
     id: "1",
     position: { x: 0, y: 150 },
-    data: { label: "default style 1" },
+    data: { label: "Object" },
     ...nodeDefaults,
   },
 ];
@@ -29,8 +30,7 @@ const initialEdges = [
   {
     id: "e1-2",
     source: "1",
-    target: "2",
-    animated: true,
+    target: "2"
   },
 ];
 
@@ -50,9 +50,11 @@ const Flow = () => {
       const newNodes = [];
       const newEdges = [];
       let nodeId = 1;
+      const levelCounts = new Map<number, number>();
 
-      const processJsonNode = (obj: any, parentId: string | null = null, x = 0, y = 0, key?: string | number) => {
-
+      const processJsonNode = (obj: any, parentId: string | null = null, depth = 0, key?: string | number) => {
+        const siblingIndex = levelCounts.get(depth) || 0;
+        levelCounts.set(depth, siblingIndex + 1);
 
         if (typeof obj === "object" && obj !== null) {
           const currentId = `${nodeId}`;
@@ -62,12 +64,12 @@ const Flow = () => {
             label = key ? 
               `${key} (Array[${obj.length}])` : 
               `Array[${obj.length}]`;
+            const position = calculateGridPosition(depth, siblingIndex);
             
-            // For arrays, we don't process the items
             newNodes.push({
               ...nodeDefaults,
               id: currentId,
-              position: { x, y },
+              position,
               data: { label },
             });
             nodeId++;
@@ -76,17 +78,21 @@ const Flow = () => {
               newEdges.push({
                 id: `e${parentId}-${currentId}`,
                 source: parentId,
-                target: currentId,
-                animated: true,
+                target: currentId
               });
             }
+
+            obj.forEach((value, index) => {
+              processJsonNode(value, currentId, depth + 1, index);
+            });
           } else {
-            // For objects, continue as before
             label = key ? `${key} (Object)` : 'Object';
+            const position = calculateGridPosition(depth, siblingIndex);
+            
             newNodes.push({
               ...nodeDefaults,
               id: currentId,
-              position: { x, y },
+              position,
               data: { label },
             });
             nodeId++;
@@ -95,24 +101,22 @@ const Flow = () => {
               newEdges.push({
                 id: `e${parentId}-${currentId}`,
                 source: parentId,
-                target: currentId,
-                animated: true,
+                target: currentId
               });
             }
 
-            // Only process children for objects, not arrays
-            Object.entries(obj).forEach(([entryKey, value], index) => {
-              processJsonNode(value, currentId, x + 200, y + index * 100, entryKey);
+            Object.entries(obj).forEach(([entryKey, value]) => {
+              processJsonNode(value, currentId, depth + 1, entryKey);
             });
           }
-        }
-
-        if (typeof obj === "string" || typeof obj === "number" || typeof obj === "boolean") {
+        } else {
           const currentId = `${nodeId}`;
+          const position = calculateGridPosition(depth, siblingIndex);
+          
           newNodes.push({
             ...nodeDefaults,
             id: currentId,
-            position: { x, y },
+            position,
             data: { label: key ? `${key}: ${obj}` : obj },
           });
           nodeId++;
@@ -121,11 +125,9 @@ const Flow = () => {
             newEdges.push({
               id: `e${parentId}-${currentId}`,
               source: parentId,
-              target: currentId,
-              animated: true,
+              target: currentId
             });
           }
-          return;
         }
       };
 
