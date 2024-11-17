@@ -1,0 +1,30 @@
+{
+    "name": "server",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "app/server/src",
+    "projectType": "application",
+    "targets": {
+      "serve": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "tsx watch src/main.ts",
+          "cwd": "app/server"
+        }
+      },
+      "build": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "tsc",
+          "cwd": "app/server"
+        }
+      },
+      "lint": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "eslint .",
+          "cwd": "app/server"
+        }
+      }
+    },
+    "tags": []
+  }
