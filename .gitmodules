@@ -1,3 +1,6 @@
 [submodule "app/server2"]
 	path = app/server2
 	url = git@github.com:heythaoday/usejson-server.git
+[submodule "app/server"]
+	path = app/server
+	url = git@github.com:heythaoday/usejson-server.git
