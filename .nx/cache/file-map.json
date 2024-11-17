@@ -1,0 +1,225 @@
+{
+  "version": "6.0",
+  "nxVersion": "17.3.2",
+  "deps": {
+    "@nx/workspace": "^17.0.0",
+    "nx": "^17.0.0",
+    "typescript": "~5.6.2"
+  },
+  "pathMappings": {
+    "@usejson/server": [
+      "app/server/src"
+    ],
+    "@usejson/web": [
+      "app/web/src"
+    ]
+  },
+  "nxJsonPlugins": [],
+  "pluginsConfig": {
+    "@nx/js": {
+      "analyzeSourceFiles": false
+    }
+  },
+  "fileMap": {
+    "nonProjectFiles": [
+      {
+        "file": ".gitignore",
+        "hash": "13046175384202504187"
+      },
+      {
+        "file": ".gitmodules",
+        "hash": "16467471580807200385"
+      },
+      {
+        "file": "README.md",
+        "hash": "8091586809196040198"
+      },
+      {
+        "file": "nx.json",
+        "hash": "12099334469839609271"
+      },
+      {
+        "file": "package-lock.json",
+        "hash": "3982716419539122787"
+      },
+      {
+        "file": "package.json",
+        "hash": "12662678076697419227"
+      },
+      {
+        "file": "tsconfig.base.json",
+        "hash": "1040464754348349145"
+      },
+      {
+        "file": "yarn.lock",
+        "hash": "15072450518624544703"
+      }
+    ],
+    "projectFileMap": {
+      "web": [
+        {
+          "file": "app/web/components.json",
+          "hash": "15181116420704534274"
+        },
+        {
+          "file": "app/web/eslint.config.js",
+          "hash": "16145672096969245511"
+        },
+        {
+          "file": "app/web/index.html",
+          "hash": "4025202329384162906"
+        },
+        {
+          "file": "app/web/package.json",
+          "hash": "15402738964577078069",
+          "deps": [
+            "npm:@monaco-editor/react",
+            "npm:@radix-ui/react-context-menu",
+            "npm:@radix-ui/react-menubar",
+            "npm:@radix-ui/react-slot",
+            "npm:@xyflow/react",
+            "npm:class-variance-authority",
+            "npm:clsx",
+            "npm:jotai",
+            "npm:lucide-react",
+            "npm:react",
+            "npm:react-dom",
+            "npm:react-resizable-panels",
+            "npm:sonner",
+            "npm:tailwind-merge",
+            "npm:tailwindcss-animate",
+            "npm:@trpc/client",
+            "server",
+            "npm:@eslint/js",
+            "npm:@types/node",
+            "npm:@types/react",
+            "npm:@types/react-dom",
+            "npm:@vitejs/plugin-react-swc",
+            "npm:autoprefixer",
+            "npm:eslint",
+            "npm:eslint-plugin-react-hooks",
+            "npm:eslint-plugin-react-refresh",
+            "npm:globals",
+            "npm:postcss",
+            "npm:tailwindcss",
+            "npm:typescript",
+            "npm:typescript-eslint",
+            "npm:vite"
+          ]
+        },
+        {
+          "file": "app/web/postcss.config.js",
+          "hash": "1121830044826443979"
+        },
+        {
+          "file": "app/web/project.json",
+          "hash": "3414719149636581066"
+        },
+        {
+          "file": "app/web/public/vite.svg",
+          "hash": "16046085400642193116"
+        },
+        {
+          "file": "app/web/src/App.tsx",
+          "hash": "2305387128407937552"
+        },
+        {
+          "file": "app/web/src/assets/react.svg",
+          "hash": "16069471864800376455"
+        },
+        {
+          "file": "app/web/src/components/CodeEditor.tsx",
+          "hash": "11187701293219774842"
+        },
+        {
+          "file": "app/web/src/components/FlowCanvas.tsx",
+          "hash": "12483585663626035070"
+        },
+        {
+          "file": "app/web/src/components/JsonEditor.tsx",
+          "hash": "7159734935507373575"
+        },
+        {
+          "file": "app/web/src/components/MenuBar.tsx",
+          "hash": "12340973647910192520"
+        },
+        {
+          "file": "app/web/src/components/ui/button.tsx",
+          "hash": "931575791498019120"
+        },
+        {
+          "file": "app/web/src/components/ui/context-menu.tsx",
+          "hash": "11863159609193234017"
+        },
+        {
+          "file": "app/web/src/components/ui/menubar.tsx",
+          "hash": "5031923332639580379"
+        },
+        {
+          "file": "app/web/src/components/ui/resizable.tsx",
+          "hash": "7545385077443522790"
+        },
+        {
+          "file": "app/web/src/index.css",
+          "hash": "15559091796850661197"
+        },
+        {
+          "file": "app/web/src/lib/utils.ts",
+          "hash": "2087453467323000983"
+        },
+        {
+          "file": "app/web/src/main.tsx",
+          "hash": "11038211546439381838"
+        },
+        {
+          "file": "app/web/src/vite-env.d.ts",
+          "hash": "12946363841406869089"
+        },
+        {
+          "file": "app/web/tailwind.config.js",
+          "hash": "7198188633983214639"
+        },
+        {
+          "file": "app/web/tsconfig.app.json",
+          "hash": "8525952389856807980"
+        },
+        {
+          "file": "app/web/tsconfig.json",
+          "hash": "1778611288216197132"
+        },
+        {
+          "file": "app/web/tsconfig.node.json",
+          "hash": "3810366411942401755"
+        },
+        {
+          "file": "app/web/vite.config.ts",
+          "hash": "9456205339713533705"
+        }
+      ],
+      "server": [
+        {
+          "file": "app/server/package.json",
+          "hash": "8702630869023560305",
+          "deps": [
+            "npm:@trpc/server",
+            "npm:zod",
+            "npm:express",
+            "npm:@trpc/react-query",
+            "npm:@types/express",
+            "npm:@types/node",
+            "npm:tsx",
+            "npm:typescript"
+          ]
+        },
+        {
+          "file": "app/server/project.json",
+          "hash": "16923935025755282872"
+        },
+        {
+          "file": "app/server/src/main.ts",
+          "hash": "13348847888267522107"
+        }
+      ]
+    }
+  }
+}
