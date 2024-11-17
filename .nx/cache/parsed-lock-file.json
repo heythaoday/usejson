@@ -1368,6 +1368,24 @@
         "hash": "sha512-XKaZ+dzDIQ9Ot9o89oJQ/aluI17+VvUnIpYJTcZtvv1iYX6MzHh3Ik2CSR7MdPKpPwfZXHBeCingb2b4PoDVdw=="
       }
     },
+    "npm:@tanstack/query-core": {
+      "type": "npm",
+      "name": "npm:@tanstack/query-core",
+      "data": {
+        "version": "4.36.1",
+        "packageName": "@tanstack/query-core",
+        "hash": "sha512-DJSilV5+ytBP1FbFcEJovv4rnnm/CokuVvrBEtW/Va9DvuJ3HksbXUJEpI0aV1KtuL4ZoO9AVE6PyNLzF7tLeA=="
+      }
+    },
+    "npm:@tanstack/react-query": {
+      "type": "npm",
+      "name": "npm:@tanstack/react-query",
+      "data": {
+        "version": "4.36.1",
+        "packageName": "@tanstack/react-query",
+        "hash": "sha512-y7ySVHFyyQblPl3J3eQBWpXZkliroki3ARnBKsdJchlgt7yJLRDUcf4B8soufgiYt3pEQIkBWBx1N9/ZPIeUWw=="
+      }
+    },
     "npm:@trpc/client": {
       "type": "npm",
       "name": "npm:@trpc/client",
@@ -2223,6 +2241,15 @@
         "hash": "sha512-6DnInpx7SJ2AK3+CTUE/ZM0vWTUboZCegxhC2xiIydHR9jNuTAASBrfEpHhiGOZw/nX51bHt6YQl8jsGo4y/0w=="
       }
     },
+    "npm:cors": {
+      "type": "npm",
+      "name": "npm:cors",
+      "data": {
+        "version": "2.8.5",
+        "packageName": "cors",
+        "hash": "sha512-KIHbLJqu73RGr/hnbrO9uBeixNGuvSQjul/jdFvS/KFSIH1hWVd1ng7zOHx+YrEfInLG7q4n6GHQ9cDtxv/P6g=="
+      }
+    },
     "npm:cross-spawn": {
       "type": "npm",
       "name": "npm:cross-spawn",
@@ -2619,18 +2646,18 @@
         "hash": "sha512-NiSupZ4OeuGwr68lGIeym/ksIZMJodUGOSCZ/FSnTxcrekbvqrgdUxlJOMpijaKZVjAJrWrGs/6Jy8OMuyj9ow=="
       }
     },
-    "npm:escape-string-regexp": {
+    "npm:escape-string-regexp@1.0.5": {
       "type": "npm",
-      "name": "npm:escape-string-regexp",
+      "name": "npm:escape-string-regexp@1.0.5",
       "data": {
         "version": "1.0.5",
         "packageName": "escape-string-regexp",
         "hash": "sha512-vbRorB5FUQWvla16U8R/qgaFIya2qGzwDrNmCZuYKrbdSUMG6I1ZCGQRefkRVhuOkIGVne7BQ35DSfo1qvJqFg=="
       }
     },
-    "npm:escape-string-regexp@4.0.0": {
+    "npm:escape-string-regexp": {
       "type": "npm",
-      "name": "npm:escape-string-regexp@4.0.0",
+      "name": "npm:escape-string-regexp",
       "data": {
         "version": "4.0.0",
         "packageName": "escape-string-regexp",
@@ -5778,6 +5805,16 @@
       "type": "static"
     },
     {
+      "source": "npm:@tanstack/react-query",
+      "target": "npm:@tanstack/query-core",
+      "type": "static"
+    },
+    {
+      "source": "npm:@tanstack/react-query",
+      "target": "npm:use-sync-external-store",
+      "type": "static"
+    },
+    {
       "source": "npm:@types/body-parser",
       "target": "npm:@types/connect",
       "type": "static"
@@ -6533,6 +6570,16 @@
       "type": "static"
     },
     {
+      "source": "npm:cors",
+      "target": "npm:object-assign",
+      "type": "static"
+    },
+    {
+      "source": "npm:cors",
+      "target": "npm:vary",
+      "type": "static"
+    },
+    {
       "source": "npm:cross-spawn",
       "target": "npm:path-key",
       "type": "static"
@@ -7024,7 +7071,7 @@
     },
     {
       "source": "npm:eslint",
-      "target": "npm:escape-string-regexp@4.0.0",
+      "target": "npm:escape-string-regexp",
       "type": "static"
     },
     {
@@ -7339,7 +7386,7 @@
     },
     {
       "source": "npm:figures",
-      "target": "npm:escape-string-regexp",
+      "target": "npm:escape-string-regexp@1.0.5",
       "type": "static"
     },
     {

@@ -23,36 +23,36 @@
   "fileMap": {
     "nonProjectFiles": [
       {
-        "file": ".gitignore",
-        "hash": "13046175384202504187"
+        "file": "package.json",
+        "hash": "12662678076697419227"
       },
       {
-        "file": ".gitmodules",
-        "hash": "16467471580807200385"
+        "file": ".gitignore",
+        "hash": "13046175384202504187"
       },
       {
         "file": "README.md",
         "hash": "8091586809196040198"
       },
       {
-        "file": "nx.json",
-        "hash": "12099334469839609271"
-      },
-      {
-        "file": "package-lock.json",
-        "hash": "3982716419539122787"
-      },
-      {
-        "file": "package.json",
-        "hash": "12662678076697419227"
+        "file": "yarn.lock",
+        "hash": "2451265307477300656"
       },
       {
         "file": "tsconfig.base.json",
         "hash": "1040464754348349145"
       },
       {
-        "file": "yarn.lock",
-        "hash": "15072450518624544703"
+        "file": "nx.json",
+        "hash": "12099334469839609271"
+      },
+      {
+        "file": ".gitmodules",
+        "hash": "13622153315035115647"
+      },
+      {
+        "file": "package-lock.json",
+        "hash": "3982716419539122787"
       }
     ],
     "projectFileMap": {
@@ -71,12 +71,16 @@
         },
         {
           "file": "app/web/package.json",
-          "hash": "15402738964577078069",
+          "hash": "17963569405714682839",
           "deps": [
             "npm:@monaco-editor/react",
             "npm:@radix-ui/react-context-menu",
             "npm:@radix-ui/react-menubar",
             "npm:@radix-ui/react-slot",
+            "npm:@tanstack/react-query",
+            "npm:@trpc/client",
+            "server",
+            "@usejson/shared",
             "npm:@xyflow/react",
             "npm:class-variance-authority",
             "npm:clsx",
@@ -88,8 +92,6 @@
             "npm:sonner",
             "npm:tailwind-merge",
             "npm:tailwindcss-animate",
-            "npm:@trpc/client",
-            "server",
             "npm:@eslint/js",
             "npm:@types/node",
             "npm:@types/react",
@@ -121,7 +123,7 @@
         },
         {
           "file": "app/web/src/App.tsx",
-          "hash": "2305387128407937552"
+          "hash": "17189203319853650874"
         },
         {
           "file": "app/web/src/assets/react.svg",
@@ -164,6 +166,10 @@
           "hash": "15559091796850661197"
         },
         {
+          "file": "app/web/src/lib/trpc.ts",
+          "hash": "2996076865627254345"
+        },
+        {
           "file": "app/web/src/lib/utils.ts",
           "hash": "2087453467323000983"
         },
@@ -196,15 +202,35 @@
           "hash": "9456205339713533705"
         }
       ],
-      "server": [
+      "@usejson/shared": [
         {
-          "file": "app/server/package.json",
-          "hash": "8702630869023560305",
+          "file": "app/shared/package.json",
+          "hash": "12159684654345259517",
           "deps": [
             "npm:@trpc/server",
             "npm:zod",
-            "npm:express",
+            "npm:@types/express",
+            "npm:@types/node",
+            "npm:tsx",
+            "npm:typescript"
+          ]
+        },
+        {
+          "file": "app/shared/types/index.ts",
+          "hash": "15711468298083314253"
+        }
+      ],
+      "server": [
+        {
+          "file": "app/server/package.json",
+          "hash": "10148168489130239126",
+          "deps": [
             "npm:@trpc/react-query",
+            "npm:@trpc/server",
+            "@usejson/shared",
+            "npm:cors",
+            "npm:express",
+            "npm:zod",
             "npm:@types/express",
             "npm:@types/node",
             "npm:tsx",
@@ -217,7 +243,15 @@
         },
         {
           "file": "app/server/src/main.ts",
-          "hash": "13348847888267522107"
+          "hash": "11489825470672554588"
+        },
+        {
+          "file": "app/server/src/router.ts",
+          "hash": "10697597812594527320"
+        },
+        {
+          "file": "app/server/src/utils.ts",
+          "hash": "2087453467323000983"
         }
       ]
     }

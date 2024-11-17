@@ -8,9 +8,19 @@ import { useNodesState, useEdgesState, addEdge, Position, ReactFlowProvider } fr
 import { MenuBar } from "@/components/MenuBar";
 import { JsonEditor } from "@/components/JsonEditor";
 import { FlowCanvas } from "@/components/FlowCanvas";
-import { calculateGridPosition } from "@/lib/utils";
-
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import {trpc} from '@/lib/trpc';
+import { httpBatchLink } from '@trpc/client';
 import "@xyflow/react/dist/style.css";
+
+const queryClient = new QueryClient();
+const trpcClient = trpc.createClient({
+  links: [
+    httpBatchLink({
+      url: 'http://localhost:3000/trpc',
+    }),
+  ],
+});
 
 const nodeDefaults = {
   sourcePosition: Position.Right,
@@ -44,102 +54,23 @@ const Flow = () => {
     []
   );
 
-  const handleJsonParse = useCallback(() => {
-    try {
-      const parsed = JSON.parse(jsonContent);
-      const newNodes = [];
-      const newEdges = [];
-      let nodeId = 1;
-      const levelCounts = new Map<number, number>();
-
-      const processJsonNode = (obj: any, parentId: string | null = null, depth = 0, key?: string | number) => {
-        const siblingIndex = levelCounts.get(depth) || 0;
-        levelCounts.set(depth, siblingIndex + 1);
-
-        if (typeof obj === "object" && obj !== null) {
-          const currentId = `${nodeId}`;
-          let label;
-          
-          if (Array.isArray(obj)) {
-            label = key ? 
-              `${key} (Array[${obj.length}])` : 
-              `Array[${obj.length}]`;
-            const position = calculateGridPosition(depth, siblingIndex);
-            
-            newNodes.push({
-              ...nodeDefaults,
-              id: currentId,
-              position,
-              data: { label },
-            });
-            nodeId++;
-
-            if (parentId) {
-              newEdges.push({
-                id: `e${parentId}-${currentId}`,
-                source: parentId,
-                target: currentId
-              });
-            }
-
-            obj.forEach((value, index) => {
-              processJsonNode(value, currentId, depth + 1, index);
-            });
-          } else {
-            label = key ? `${key} (Object)` : 'Object';
-            const position = calculateGridPosition(depth, siblingIndex);
-            
-            newNodes.push({
-              ...nodeDefaults,
-              id: currentId,
-              position,
-              data: { label },
-            });
-            nodeId++;
-
-            if (parentId) {
-              newEdges.push({
-                id: `e${parentId}-${currentId}`,
-                source: parentId,
-                target: currentId
-              });
-            }
-
-            Object.entries(obj).forEach(([entryKey, value]) => {
-              processJsonNode(value, currentId, depth + 1, entryKey);
-            });
-          }
-        } else {
-          const currentId = `${nodeId}`;
-          const position = calculateGridPosition(depth, siblingIndex);
-          
-          newNodes.push({
-            ...nodeDefaults,
-            id: currentId,
-            position,
-            data: { label: key ? `${key}: ${obj}` : obj },
-          });
-          nodeId++;
-
-          if (parentId) {
-            newEdges.push({
-              id: `e${parentId}-${currentId}`,
-              source: parentId,
-              target: currentId
-            });
-          }
-        }
-      };
-
-      processJsonNode(parsed);
-      setNodes(newNodes);
-      setEdges(newEdges);
-    } catch (error) {
-      console.error("Invalid JSON:", error);
+  const parseJsonMutation = trpc.parseJson.useMutation({
+    onSuccess: (data) => {
+      setNodes(data.nodes);
+      setEdges(data.edges);
+    },
+    onError: (error) => {
+      console.error("Error parsing JSON:", error);
     }
-  }, [jsonContent, setNodes, setEdges]);
+  });
+
+  const handleJsonParse = () => {
+    parseJsonMutation.mutate(jsonContent);
+  };
 
   return (
+    <trpc.Provider client={trpcClient} queryClient={queryClient}>
+      <QueryClientProvider client={queryClient}>
     <div className="h-screen flex flex-col">
       <MenuBar />
       <ResizablePanelGroup direction="horizontal" className="flex-1">
@@ -164,6 +95,8 @@ const Flow = () => {
         </ResizablePanel>
       </ResizablePanelGroup>
     </div>
+    </QueryClientProvider>
+    </trpc.Provider>
   );
 };
 

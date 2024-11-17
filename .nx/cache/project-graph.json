@@ -1,5 +1,43 @@
 {
   "nodes": {
+    "@usejson/shared": {
+      "name": "@usejson/shared",
+      "type": "lib",
+      "data": {
+        "root": "app/shared",
+        "targets": {
+          "build": {
+            "dependsOn": [
+              "^build"
+            ],
+            "executor": "nx:run-script",
+            "options": {
+              "script": "build"
+            },
+            "configurations": {}
+          },
+          "dev": {
+            "executor": "nx:run-script",
+            "options": {
+              "script": "dev"
+            },
+            "configurations": {}
+          },
+          "lint": {
+            "executor": "nx:run-script",
+            "options": {
+              "script": "lint"
+            },
+            "configurations": {}
+          }
+        },
+        "sourceRoot": "app/shared",
+        "name": "@usejson/shared",
+        "projectType": "library",
+        "implicitDependencies": [],
+        "tags": []
+      }
+    },
     "server": {
       "name": "server",
       "type": "app",
@@ -1469,6 +1507,24 @@
         "hash": "sha512-XKaZ+dzDIQ9Ot9o89oJQ/aluI17+VvUnIpYJTcZtvv1iYX6MzHh3Ik2CSR7MdPKpPwfZXHBeCingb2b4PoDVdw=="
       }
     },
+    "npm:@tanstack/query-core": {
+      "type": "npm",
+      "name": "npm:@tanstack/query-core",
+      "data": {
+        "version": "4.36.1",
+        "packageName": "@tanstack/query-core",
+        "hash": "sha512-DJSilV5+ytBP1FbFcEJovv4rnnm/CokuVvrBEtW/Va9DvuJ3HksbXUJEpI0aV1KtuL4ZoO9AVE6PyNLzF7tLeA=="
+      }
+    },
+    "npm:@tanstack/react-query": {
+      "type": "npm",
+      "name": "npm:@tanstack/react-query",
+      "data": {
+        "version": "4.36.1",
+        "packageName": "@tanstack/react-query",
+        "hash": "sha512-y7ySVHFyyQblPl3J3eQBWpXZkliroki3ARnBKsdJchlgt7yJLRDUcf4B8soufgiYt3pEQIkBWBx1N9/ZPIeUWw=="
+      }
+    },
     "npm:@trpc/client": {
       "type": "npm",
       "name": "npm:@trpc/client",
@@ -2324,6 +2380,15 @@
         "hash": "sha512-6DnInpx7SJ2AK3+CTUE/ZM0vWTUboZCegxhC2xiIydHR9jNuTAASBrfEpHhiGOZw/nX51bHt6YQl8jsGo4y/0w=="
       }
     },
+    "npm:cors": {
+      "type": "npm",
+      "name": "npm:cors",
+      "data": {
+        "version": "2.8.5",
+        "packageName": "cors",
+        "hash": "sha512-KIHbLJqu73RGr/hnbrO9uBeixNGuvSQjul/jdFvS/KFSIH1hWVd1ng7zOHx+YrEfInLG7q4n6GHQ9cDtxv/P6g=="
+      }
+    },
     "npm:cross-spawn": {
       "type": "npm",
       "name": "npm:cross-spawn",
@@ -2720,18 +2785,18 @@
         "hash": "sha512-NiSupZ4OeuGwr68lGIeym/ksIZMJodUGOSCZ/FSnTxcrekbvqrgdUxlJOMpijaKZVjAJrWrGs/6Jy8OMuyj9ow=="
       }
     },
-    "npm:escape-string-regexp": {
+    "npm:escape-string-regexp@1.0.5": {
       "type": "npm",
-      "name": "npm:escape-string-regexp",
+      "name": "npm:escape-string-regexp@1.0.5",
       "data": {
         "version": "1.0.5",
         "packageName": "escape-string-regexp",
         "hash": "sha512-vbRorB5FUQWvla16U8R/qgaFIya2qGzwDrNmCZuYKrbdSUMG6I1ZCGQRefkRVhuOkIGVne7BQ35DSfo1qvJqFg=="
       }
     },
-    "npm:escape-string-regexp@4.0.0": {
+    "npm:escape-string-regexp": {
       "type": "npm",
-      "name": "npm:escape-string-regexp@4.0.0",
+      "name": "npm:escape-string-regexp",
       "data": {
         "version": "4.0.0",
         "packageName": "escape-string-regexp",
@@ -5098,7 +5163,44 @@
     }
   },
   "dependencies": {
+    "@usejson/shared": [
+      {
+        "source": "@usejson/shared",
+        "target": "npm:@trpc/server",
+        "type": "static"
+      },
+      {
+        "source": "@usejson/shared",
+        "target": "npm:zod",
+        "type": "static"
+      },
+      {
+        "source": "@usejson/shared",
+        "target": "npm:@types/express",
+        "type": "static"
+      },
+      {
+        "source": "@usejson/shared",
+        "target": "npm:@types/node",
+        "type": "static"
+      },
+      {
+        "source": "@usejson/shared",
+        "target": "npm:tsx",
+        "type": "static"
+      },
+      {
+        "source": "@usejson/shared",
+        "target": "npm:typescript",
+        "type": "static"
+      }
+    ],
     "server": [
+      {
+        "source": "server",
+        "target": "npm:@trpc/react-query",
+        "type": "static"
+      },
       {
         "source": "server",
         "target": "npm:@trpc/server",
@@ -5106,7 +5208,12 @@
       },
       {
         "source": "server",
-        "target": "npm:zod",
+        "target": "@usejson/shared",
+        "type": "static"
+      },
+      {
+        "source": "server",
+        "target": "npm:cors",
         "type": "static"
       },
       {
@@ -5116,7 +5223,7 @@
       },
       {
         "source": "server",
-        "target": "npm:@trpc/react-query",
+        "target": "npm:zod",
         "type": "static"
       },
       {
@@ -5159,6 +5266,26 @@
       {
         "source": "web",
         "target": "npm:@radix-ui/react-slot",
+        "type": "static"
+      },
+      {
+        "source": "web",
+        "target": "npm:@tanstack/react-query",
+        "type": "static"
+      },
+      {
+        "source": "web",
+        "target": "npm:@trpc/client",
+        "type": "static"
+      },
+      {
+        "source": "web",
+        "target": "server",
+        "type": "static"
+      },
+      {
+        "source": "web",
+        "target": "@usejson/shared",
         "type": "static"
       },
       {
@@ -5214,16 +5341,6 @@
       {
         "source": "web",
         "target": "npm:tailwindcss-animate",
-        "type": "static"
-      },
-      {
-        "source": "web",
-        "target": "npm:@trpc/client",
-        "type": "static"
-      },
-      {
-        "source": "web",
-        "target": "server",
         "type": "static"
       },
       {
@@ -6119,6 +6236,18 @@
         "type": "static"
       }
     ],
+    "npm:@tanstack/react-query": [
+      {
+        "source": "npm:@tanstack/react-query",
+        "target": "npm:@tanstack/query-core",
+        "type": "static"
+      },
+      {
+        "source": "npm:@tanstack/react-query",
+        "target": "npm:use-sync-external-store",
+        "type": "static"
+      }
+    ],
     "npm:@types/body-parser": [
       {
         "source": "npm:@types/body-parser",
@@ -6922,6 +7051,18 @@
         "type": "static"
       }
     ],
+    "npm:cors": [
+      {
+        "source": "npm:cors",
+        "target": "npm:object-assign",
+        "type": "static"
+      },
+      {
+        "source": "npm:cors",
+        "target": "npm:vary",
+        "type": "static"
+      }
+    ],
     "npm:cross-spawn": [
       {
         "source": "npm:cross-spawn",
@@ -7412,7 +7553,7 @@
       },
       {
         "source": "npm:eslint",
-        "target": "npm:escape-string-regexp@4.0.0",
+        "target": "npm:escape-string-regexp",
         "type": "static"
       },
       {
@@ -7726,7 +7867,7 @@
     "npm:figures": [
       {
         "source": "npm:figures",
-        "target": "npm:escape-string-regexp",
+        "target": "npm:escape-string-regexp@1.0.5",
         "type": "static"
       }
     ],
