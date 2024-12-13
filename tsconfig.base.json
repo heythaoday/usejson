@@ -15,8 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@usejson/server": ["app/server/src"],
-      "@usejson/web": ["app/web/src"]
+      "@visualjson/server": ["app/server/src"],
+      "@visualjson/web": ["app/web/src"]
     }
   },
   "exclude": ["node_modules", "tmp"]

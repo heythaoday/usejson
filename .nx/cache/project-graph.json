@@ -1,7 +1,7 @@
 {
   "nodes": {
-    "@usejson/shared": {
-      "name": "@usejson/shared",
+    "@visualjson/shared": {
+      "name": "@visualjson/shared",
       "type": "lib",
       "data": {
         "root": "app/shared",
@@ -32,7 +32,7 @@
           }
         },
         "sourceRoot": "app/shared",
-        "name": "@usejson/shared",
+        "name": "@visualjson/shared",
         "projectType": "library",
         "implicitDependencies": [],
         "tags": []
@@ -71,7 +71,7 @@
           "serve": {
             "executor": "nx:run-commands",
             "options": {
-              "command": "tsx watch src/main.ts",
+              "command": "tsx watch src/main.ts --host",
               "cwd": "app/server"
             },
             "configurations": {}
@@ -124,7 +124,7 @@
           "serve": {
             "executor": "nx:run-commands",
             "options": {
-              "command": "vite",
+              "command": "vite --host",
               "cwd": "app/web"
             },
             "configurations": {}
@@ -5172,34 +5172,34 @@
     }
   },
   "dependencies": {
-    "@usejson/shared": [
+    "@visualjson/shared": [
       {
-        "source": "@usejson/shared",
+        "source": "@visualjson/shared",
         "target": "npm:@trpc/server",
         "type": "static"
       },
       {
-        "source": "@usejson/shared",
+        "source": "@visualjson/shared",
         "target": "npm:zod",
         "type": "static"
       },
       {
-        "source": "@usejson/shared",
+        "source": "@visualjson/shared",
         "target": "npm:@types/express",
         "type": "static"
       },
       {
-        "source": "@usejson/shared",
+        "source": "@visualjson/shared",
         "target": "npm:@types/node",
         "type": "static"
       },
       {
-        "source": "@usejson/shared",
+        "source": "@visualjson/shared",
         "target": "npm:tsx",
         "type": "static"
       },
       {
-        "source": "@usejson/shared",
+        "source": "@visualjson/shared",
         "target": "npm:typescript",
         "type": "static"
       }
@@ -5217,7 +5217,7 @@
       },
       {
         "source": "server",
-        "target": "@usejson/shared",
+        "target": "@visualjson/shared",
         "type": "static"
       },
       {
@@ -5299,7 +5299,7 @@
       },
       {
         "source": "web",
-        "target": "@usejson/shared",
+        "target": "@visualjson/shared",
         "type": "static"
       },
       {

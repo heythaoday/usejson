@@ -1,4 +1,3 @@
-
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import {trpc} from '@/lib/trpc';
 import { httpBatchLink } from '@trpc/client';
@@ -9,14 +8,11 @@ const queryClient = new QueryClient();
 const trpcClient = trpc.createClient({
   links: [
     httpBatchLink({
-      url: 'http://localhost:3001/trpc',
-      headers: () => ({
-        // Add any required headers
-      }),
+      url: `http://${window.location.hostname}:3001/trpc`,
       fetch: (url, options) => {
         return fetch(url, {
           ...options,
-          credentials: 'include', // Important for CORS with credentials
+          credentials: 'include',
         });
       },
     }),

@@ -1,5 +1,5 @@
 {
-  "name": "@usejson/web",
+  "name": "@visualjson/web",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -16,8 +16,8 @@
     "@radix-ui/react-slot": "^1.1.0",
     "@tanstack/react-query": "^4.36.1",
     "@trpc/client": "^10.45.0",
-    "@usejson/server": "*",
-    "@usejson/shared": "*",
+    "@visualjson/server": "*",
+    "@visualjson/shared": "*",
     "@xyflow/react": "^12.3.4",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",

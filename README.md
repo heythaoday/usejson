@@ -26,10 +26,10 @@ An elegant visualization tool that transforms complex JSON data structures into 
 
 ```bash
 # Clone the repository
-git clone https://github.com/heythaoday/usejson.git
+git clone https://github.com/heythaoday/visualjson.git
 
 # Navigate to project directory
-cd usejson
+cd visualjson
 
 # Install dependencies
 yarn
